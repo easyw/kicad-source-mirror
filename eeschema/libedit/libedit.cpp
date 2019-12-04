@@ -424,8 +424,7 @@ void LIB_EDIT_FRAME::savePartAs()
             itemsToDisplay.push_back( item );
         }
 
-        EDA_LIST_DIALOG dlg( this, _( "Save Copy of Symbol" ), headers, itemsToDisplay, old_lib,
-                             nullptr, nullptr, /* sort */ false, /* show headers */ false );
+        EDA_LIST_DIALOG dlg( this, _( "Save Copy of Symbol" ), headers, itemsToDisplay, old_lib );
         dlg.SetListLabel( _( "Save in library:" ) );
         dlg.SetOKLabel( _( "Save" ) );
 
