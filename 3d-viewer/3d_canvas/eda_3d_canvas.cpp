@@ -1005,7 +1005,7 @@ bool EDA_3D_CANVAS::SetView3D( int aKeycode )
         m_settings.CameraGet().SetInterpolateMode( INTERPOLATION_BEZIER );
         m_settings.CameraGet().SetT0_and_T1_current_T();
 
-        if( m_settings.CameraGet().Zoom_T1( 1.4f ) )
+        if( m_settings.CameraGet().Zoom_T1( 1.2f ) )  //maui 1.4f
             request_start_moving_camera( 3.0f );
 
         return true;
@@ -1014,7 +1014,7 @@ bool EDA_3D_CANVAS::SetView3D( int aKeycode )
         m_settings.CameraGet().SetInterpolateMode( INTERPOLATION_BEZIER );
         m_settings.CameraGet().SetT0_and_T1_current_T();
 
-        if( m_settings.CameraGet().Zoom_T1( 1/1.4f ) )
+        if( m_settings.CameraGet().Zoom_T1( 1/1.2f ) )  //maui 1.4f
             request_start_moving_camera( 3.0f );
 
         return true;
