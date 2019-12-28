@@ -173,6 +173,9 @@ class EDA_3D_VIEWER : public KIWAY_PLAYER
 
     void On3DGridSelection( wxCommandEvent &event );
 
+    // maui clear cache function
+    void clearCache ( wxCommandEvent& aEvent ); // maui clear cache function
+
     void OnRenderEngineSelection( wxCommandEvent &event );
     void OnDisableRayTracing( wxCommandEvent& aEvent );
 

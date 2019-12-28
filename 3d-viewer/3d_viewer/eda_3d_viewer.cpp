@@ -134,6 +134,8 @@ BEGIN_EVENT_TABLE( EDA_3D_VIEWER, EDA_BASE_FRAME )
     EVT_MENU( wxID_EXIT, EDA_3D_VIEWER::Exit3DFrame )
     EVT_MENU( ID_RENDER_CURRENT_VIEW, EDA_3D_VIEWER::OnRenderEngineSelection )
     EVT_MENU( ID_DISABLE_RAY_TRACING, EDA_3D_VIEWER::OnDisableRayTracing )
+    
+    EVT_MENU( ID_CLEAR_CACHE, EDA_3D_VIEWER::clearCache ) //maui
 
     EVT_MENU_RANGE( ID_MENU3D_GRID, ID_MENU3D_GRID_END, EDA_3D_VIEWER::On3DGridSelection )
     EVT_MENU( wxID_ABOUT, EDA_BASE_FRAME::GetKicadAbout )
@@ -630,6 +632,66 @@ void EDA_3D_VIEWER::OnRenderEngineSelection( wxCommandEvent &event )
         RenderEngineChanged();
     }
 }
+
+void EDA_3D_VIEWER::clearCache ( wxCommandEvent& aEvent ) // maui clear cache function
+{
+
+    wxString cacheDir=_("");
+    #if defined(_WIN32)
+    wxStandardPaths::Get().UseAppInfo( wxStandardPaths::AppInfo_None );
+    cacheDir = wxStandardPaths::Get().GetUserLocalDataDir();
+    cacheDir.append( "\\kicad\\3d" );
+    #elif defined(__APPLE)
+    cacheDir = "${HOME}/Library/Caches/kicad/3d";
+    #else   // assume Linux
+    cacheDir = ExpandEnvVarSubstitutions( "${XDG_CACHE_HOME}" );
+
+    if( cacheDir.empty() || cacheDir == "${XDG_CACHE_HOME}" )
+        cacheDir = "${HOME}/.cache";
+
+    cacheDir.append( "/kicad/3d" );
+    #endif
+
+    //wxLogMessage( wxT( "EDA_3D_VIEWER::clearCache %s" ), cacheDir );
+    cacheDir = ExpandEnvVarSubstitutions( cacheDir );
+    //wxLogMessage( wxT( "EDA_3D_VIEWER::clearCache %s" ), cacheDir );
+    
+    if(!wxDir::Exists(cacheDir))
+        return; // false;
+    
+    wxDir dir(wxGetCwd());
+    
+    dir.Open(cacheDir);
+    if ( !dir.IsOpened() )
+    {
+        // deal with the error here - wxDir would already log an error message
+        // explaining the exact reason of the failure
+        wxLogMessage( wxT( "EDA_3D_VIEWER::clearCache error on opening %s" ), cacheDir );
+        return; // false;
+    }
+
+    //puts("Enumerating object files in current directory:");
+
+    wxString filename;
+    //ricerca cartelle
+    bool cont = dir.GetFirst(&filename, wxEmptyString, wxDIR_FILES);
+    //bool cont2=false;
+    while ( cont )
+    {
+        //wxLogMessage(filename);
+        #if defined(_WIN32)
+        filename=cacheDir+_("\\")+filename;
+        #else 
+        filename=cacheDir+_("/")+filename;
+        #endif
+        remove(filename.mb_str());
+        cont = dir.GetNext(&filename);
+    }//end while
+    
+    wxLogMessage( wxT( "EDA_3D_VIEWER::clearCache\n\nCleared 3D cache in:\n%s" ), cacheDir );
+
+    return; // true;
+} // maui clear cache function
 
 
 void EDA_3D_VIEWER::ProcessZoom( wxCommandEvent &event )

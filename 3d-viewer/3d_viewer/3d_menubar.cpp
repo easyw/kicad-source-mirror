@@ -86,6 +86,11 @@ void EDA_3D_VIEWER::CreateMenuBar()
                  _( "&Redraw" ), HELP_ZOOM_REDRAW,
                  KiBitmap( zoom_redraw_xpm ) );
 
+    // maui add clearCache 
+    AddMenuItem( viewMenu, ID_CLEAR_CACHE,
+                 _( "Clear Cache" ),
+                 KiBitmap( delete_xpm ) );
+
     viewMenu->AppendSeparator();
 
     AddMenuItem( viewMenu, ID_ROTATE3D_X_NEG,

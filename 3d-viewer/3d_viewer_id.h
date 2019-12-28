@@ -103,6 +103,8 @@ enum id_3dview_frm
 
     ID_DISABLE_RAY_TRACING,
 
+    ID_CLEAR_CACHE, //maui clearCache
+
     ID_POPUP_3D_VIEW_START,
     ID_POPUP_ZOOMIN,
     ID_POPUP_ZOOMOUT,
@@ -117,6 +119,6 @@ enum id_3dview_frm
     ID_POPUP_MOVE3D_UP,
     ID_POPUP_MOVE3D_DOWN,
     ID_POPUP_3D_VIEW_END,
-
+ 
     ID_END_COMMAND_3D = ID_KICAD_3D_VIEWER_END,
 };
