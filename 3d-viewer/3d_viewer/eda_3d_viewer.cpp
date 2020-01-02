@@ -44,7 +44,7 @@
 #include <wx/colordlg.h>
 #include <wx/colourdata.h>
 #include <wx/toolbar.h>
-
+#include <wx/stdpaths.h> //maui
 
 /**
  * Flag to enable 3D viewer main frame window debug tracing.
