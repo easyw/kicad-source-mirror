@@ -159,6 +159,7 @@ bool CINFO3D_VISU::Is3DLayerEnabled( PCB_LAYER_ID aLayer ) const
 
     case Eco1_User:
     case Eco2_User:
+    case Margin:
         // maui if( GetFlag( FL_USE_REALISTIC_MODE ) )
         // maui     return false;
 
@@ -172,12 +173,12 @@ bool CINFO3D_VISU::Is3DLayerEnabled( PCB_LAYER_ID aLayer ) const
         return true;
         break;
 
-    case Margin:
-        if( GetFlag( FL_USE_REALISTIC_MODE ) )
-            return false;
-
-        return true;
-        break;
+    // maui case Margin:
+    // maui     if( GetFlag( FL_USE_REALISTIC_MODE ) )
+    // maui         return false;
+    // maui 
+    // maui     return true;
+    // maui     break;
 
     case B_Cu:
     case F_Cu:
