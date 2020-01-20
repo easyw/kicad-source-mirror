@@ -968,7 +968,9 @@ void CINFO3D_VISU::createLayers( REPORTER *aStatusTextReporter )
             Eco1_User,
             Eco2_User,
             Edge_Cuts,
-            Margin
+            Margin,
+            F_CrtYd, // maui 3dviewer
+            B_CrtYd, // maui 3dviewer
         };
 
     // User layers are not drawn here, only technical layers

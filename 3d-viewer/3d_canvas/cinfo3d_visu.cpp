@@ -160,6 +160,8 @@ bool CINFO3D_VISU::Is3DLayerEnabled( PCB_LAYER_ID aLayer ) const
     case Eco1_User:
     case Eco2_User:
     case Margin:
+    case F_CrtYd: // maui 3dviewer
+    case B_CrtYd: // maui 3dviewer
         // maui if( GetFlag( FL_USE_REALISTIC_MODE ) )
         // maui     return false;
 

@@ -489,7 +489,7 @@ void C3D_RENDER_RAYTRACING::reload( REPORTER *aStatusTextReporter )
             case Eco2_User:
             case Edge_Cuts:
             case Margin:
-            break;
+            break; // maui 3dviewer ?
 
             case B_CrtYd:
             case F_CrtYd:
