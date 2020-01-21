@@ -383,6 +383,8 @@ void CINFO3D_VISU::InitSettings( REPORTER *aStatusTextReporter )
             break;
 
         case B_SilkS:
+        case B_CrtYd: //maui 3d viewer
+        case Eco2_User: //maui 3d viewer
             zposBottom = zpos_copperTop_back - 1.0f * zpos_offset;
             zposTop    = zposBottom - m_nonCopperLayerThickness3DU;
             break;
