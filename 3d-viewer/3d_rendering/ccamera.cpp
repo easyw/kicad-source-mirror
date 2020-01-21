@@ -31,6 +31,17 @@
 #include <wx/log.h>
 
 
+// A helper function to normalize aAngle between -2PI and +2PI
+inline void normalise2PI( float& aAngle )
+{
+    while( aAngle > 0.0 )
+        aAngle -= M_PI*2;
+
+    while( aAngle < 0.0 )
+        aAngle += M_PI*2;
+}
+
+
 /**
  *  Trace mask used to enable or disable the trace output of this class.
  *  The debug output can be turned on by setting the WXTRACE environment variable to
@@ -95,6 +106,20 @@ void CCAMERA::Reset_T1()
     m_zoom_t1              = 1.0f;
     m_rotate_aux_t1        = SFVEC3F( 0.0f );
     m_lookat_pos_t1        = m_board_lookat_pos_init;
+
+
+    // Since 0 = 2pi, we want to reset the angle to be the closest
+    // one to where we currently are. That ensures that we rotate
+    // the board around the smallest distance getting there.
+    if( m_rotate_aux_t0.x > M_PI )
+        m_rotate_aux_t1.x = 2*M_PI;
+
+    if( m_rotate_aux_t0.y > M_PI )
+        m_rotate_aux_t1.y = 2*M_PI;
+
+    if( m_rotate_aux_t0.z > M_PI )
+        m_rotate_aux_t1.z = 2*M_PI;
+
 }
 
 
@@ -111,14 +136,17 @@ void CCAMERA::updateRotationMatrix()
     m_rotationMatrixAux = glm::rotate( glm::mat4( 1.0f ),
                                        m_rotate_aux.x,
                                        SFVEC3F( 1.0f, 0.0f, 0.0f ) );
+    normalise2PI( m_rotate_aux.x );
 
     m_rotationMatrixAux = glm::rotate( m_rotationMatrixAux,
                                        m_rotate_aux.y,
                                        SFVEC3F( 0.0f, 1.0f, 0.0f ) );
+    normalise2PI( m_rotate_aux.y );
 
     m_rotationMatrixAux = glm::rotate( m_rotationMatrixAux,
                                        m_rotate_aux.z,
                                        SFVEC3F( 0.0f, 0.0f, 1.0f ) );
+    normalise2PI( m_rotate_aux.z );
 
     m_parametersChanged = true;
 

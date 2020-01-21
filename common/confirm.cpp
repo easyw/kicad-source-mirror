@@ -89,10 +89,10 @@ bool KIDIALOG::Show( bool aShow )
             return it->second;
     }
 
-    bool ret = wxRichMessageDialog::Show( aShow );
+    int ret = wxRichMessageDialog::Show( aShow );
 
-    // Has the user asked not to show the dialog again
-    if( IsCheckBoxChecked() )
+    // Has the user asked not to show the dialog again and it was confirmed
+    if( IsCheckBoxChecked() && ret != wxID_CANCEL )
         doNotShowAgainDlgs[m_hash] = ret;
 
     return ret;
@@ -110,7 +110,7 @@ int KIDIALOG::ShowModal()
     int ret = wxRichMessageDialog::ShowModal();
 
     // Has the user asked not to show the dialog again
-    if( IsCheckBoxChecked() )
+    if( IsCheckBoxChecked() && ret != wxID_CANCEL )
         doNotShowAgainDlgs[m_hash] = ret;
 
     return ret;
