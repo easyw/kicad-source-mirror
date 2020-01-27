@@ -856,7 +856,7 @@ int PCB_EDITOR_CONTROL::CrossProbePcbToSch( const TOOL_EVENT& aEvent )
     const SELECTION& selection = selTool->GetSelection();
 
     if( selection.Size() == 1 ) {
-        // m_frame->SendMessageToEESCHEMA( nullptr );  // maui cleaning previous selection ?
+        m_frame->SendMessageToEESCHEMA( nullptr );  // maui cleaning previous selection
         m_frame->SendMessageToEESCHEMA( static_cast<BOARD_ITEM*>( selection.Front() ) );
     }
     else
