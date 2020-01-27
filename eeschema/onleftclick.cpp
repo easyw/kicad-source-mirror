@@ -114,6 +114,27 @@ void SCH_EDIT_FRAME::OnLeftClick( wxDC* aDC, const wxPoint& aPosition )
     switch( GetToolId() )
     {
     case ID_NO_TOOL_SELECTED:
+        // maui highlight selection
+        {
+        // highlight selection if foundItem is not null, or clear any highlighted selection
+        // maui highlight start
+        // clear any highligthed symbol
+        constexpr KICAD_T wiresAndComponents[] = { SCH_LINE_T,
+                                                       SCH_COMPONENT_T,
+                                                       SCH_SHEET_PIN_T,
+                                                       EOT };
+        item = LocateAndShowItem( aPosition, wiresAndComponents );
+
+        if( !item )
+            break;
+        // maui highlight: clear any highligthed symbol
+        GetCanvas()->GetView()->HighlightItem( nullptr, nullptr );
+        // maui highlight
+        GetCanvas()->GetView()->HighlightItem( item, nullptr );
+        GetCanvas()->Refresh();
+        // maui highlight end
+        }
+        // maui end
         break;
 
     case ID_ZOOM_SELECTION:
