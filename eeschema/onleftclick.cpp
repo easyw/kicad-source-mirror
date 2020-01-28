@@ -122,6 +122,10 @@ void SCH_EDIT_FRAME::OnLeftClick( wxDC* aDC, const wxPoint& aPosition )
         constexpr KICAD_T wiresAndComponents[] = { SCH_LINE_T,
                                                        SCH_COMPONENT_T,
                                                        SCH_SHEET_PIN_T,
+                                                       SCH_TEXT_T,
+                                                       SCH_LABEL_T,
+                                                       SCH_GLOBAL_LABEL_T,
+                                                       SCH_HIERARCHICAL_LABEL_T,
                                                        EOT };
         item = LocateAndShowItem( aPosition, wiresAndComponents );
 
