@@ -104,21 +104,7 @@ void SCH_EDIT_FRAME::OnLeftClick( wxDC* aDC, const wxPoint& aPosition )
         }
         else
         {
-            // highlight selection if foundItem is not null, or clear any highlighted selection
-            constexpr KICAD_T wiresAndComponents[] = { SCH_LINE_T,
-                                                        SCH_COMPONENT_T,
-                                                        SCH_SHEET_PIN_T,
-                                                        SCH_TEXT_T,
-                                                        SCH_LABEL_T,
-                                                        SCH_GLOBAL_LABEL_T,
-                                                        SCH_HIERARCHICAL_LABEL_T,
-                                                        EOT };
-            item = LocateAndShowItem( aPosition, wiresAndComponents );
-            // clear any highligthed symbol
-            GetCanvas()->GetView()->HighlightItem( nullptr, nullptr );
-            // highlight
-            GetCanvas()->GetView()->HighlightItem( item, nullptr );
-            GetCanvas()->Refresh();
+            item = LocateAndShowItem( aPosition );
         }
     }
 
@@ -130,6 +116,12 @@ void SCH_EDIT_FRAME::OnLeftClick( wxDC* aDC, const wxPoint& aPosition )
     case ID_NO_TOOL_SELECTED:
         if( !item )
             break;
+
+        // Clear current highlight and highlight the current item
+        GetCanvas()->GetView()->HighlightItem( nullptr, nullptr );
+        GetCanvas()->GetView()->HighlightItem( item, nullptr );
+        GetCanvas()->Refresh();
+    break;
 
     case ID_ZOOM_SELECTION:
         break;
