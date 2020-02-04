@@ -429,8 +429,7 @@ bool SCH_EDIT_FRAME::OnHotKey( wxDC* aDC, int aHotKey, const wxPoint& aPosition,
     SCH_SCREEN* screen = GetScreen();
 
     // itemInEdit == false means no item currently edited. We can ask for editing a new item
-    bool itemInEdit = screen->GetCurItem() && screen->GetCurItem()->GetFlags();
-
+    bool itemInEdit = screen->GetCurItem() && screen->GetCurItem()->GetFlags() & ~HIGHLIGHTED; //maui
     // blocInProgress == false means no block in progress.
     // Because a drag command uses a drag block, false means also no drag in progress
     // If false, we can ask for editing a new item
@@ -438,6 +437,7 @@ bool SCH_EDIT_FRAME::OnHotKey( wxDC* aDC, int aHotKey, const wxPoint& aPosition,
 
     // notBusy == true means no item currently edited and no other command in progress
     // We can change active tool and ask for editing a new item
+    
     bool notBusy = (!itemInEdit) && (!blocInProgress);
 
     /* Convert lower to upper case (the usual toupper function has problem
@@ -627,7 +627,10 @@ bool SCH_EDIT_FRAME::OnHotKey( wxDC* aDC, int aHotKey, const wxPoint& aPosition,
     case HK_MOVE_COMPONENT_OR_ITEM:         // Start move schematic item.
         if( ! notBusy )
             break;
-
+        //wxLogMessage( wxT( "M or G" ) );
+        if (aItem) //aItem->GetFlags()  //maui
+            aItem->ClearFlags( HIGHLIGHTED ); //maui
+        
         // Fall through
     case HK_EDIT:
         // Edit schematic item. Do not allow sheet editing when mowing because sheet editing
@@ -649,9 +652,12 @@ bool SCH_EDIT_FRAME::OnHotKey( wxDC* aDC, int aHotKey, const wxPoint& aPosition,
     case HK_CANVAS_CAIRO:
     case HK_CANVAS_OPENGL:
         {
-           // force a new item search on hot keys at current position,
+            // force a new item search on hot keys at current position,
             // if there is no currently edited item,
             // to avoid using a previously selected item
+            if (aItem) //aItem->GetFlags()  //maui
+                aItem->ClearFlags( HIGHLIGHTED ); //maui
+            
             if( ! itemInEdit )
                 screen->SetCurItem( NULL );
 
