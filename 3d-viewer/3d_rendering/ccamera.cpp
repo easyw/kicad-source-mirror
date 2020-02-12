@@ -61,7 +61,7 @@ CCAMERA::CCAMERA( float aRangeScale )
     m_camera_pos_init       = SFVEC3F( 0.0f, 0.0f, -(aRangeScale * 2.0f ) );
     m_board_lookat_pos_init = SFVEC3F( 0.0f );
     m_windowSize            = SFVEC2I( 0, 0 );
-    m_projectionType        = PROJECTION_PERSPECTIVE;
+    m_projectionType        = PROJECTION_ORTHO; // maui inizial view to PROJECTION_ORTHO instead of PROJECTION_PERSPECTIVE;
     m_interpolation_mode    = INTERPOLATION_BEZIER;
 
     Reset();
