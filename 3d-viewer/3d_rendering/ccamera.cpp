@@ -58,7 +58,7 @@ CCAMERA::CCAMERA( float aRangeScale )
     wxLogTrace( m_logTrace, wxT( "CCAMERA::CCAMERA" ) );
 
     m_range_scale           = aRangeScale;
-    m_camera_pos_init       = SFVEC3F( 0.0f, 0.0f, -(aRangeScale * 2.0f ) );
+    m_camera_pos_init       = SFVEC3F( 0.0f, 0.0f, -(aRangeScale * 1.0f ) );// maui 2.0f ) );
     m_board_lookat_pos_init = SFVEC3F( 0.0f );
     m_windowSize            = SFVEC2I( 0, 0 );
     m_projectionType        = PROJECTION_ORTHO; // maui inizial view to PROJECTION_ORTHO instead of PROJECTION_PERSPECTIVE;
