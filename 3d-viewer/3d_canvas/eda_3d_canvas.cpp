@@ -1023,6 +1023,7 @@ bool EDA_3D_CANVAS::SetView3D( int aKeycode )
     case '-':
         break;
 
+    case 't':
     case 'T':
         m_settings.SetFlag( FL_MODULE_ATTRIBUTES_NORMAL,
                             !m_settings.GetFlag( FL_MODULE_ATTRIBUTES_NORMAL ) );
@@ -1030,6 +1031,7 @@ bool EDA_3D_CANVAS::SetView3D( int aKeycode )
         handled = true;
         break;
 
+    case 's':
     case 'S':
         m_settings.SetFlag( FL_MODULE_ATTRIBUTES_NORMAL_INSERT,
                             !m_settings.GetFlag( FL_MODULE_ATTRIBUTES_NORMAL_INSERT ) );
@@ -1037,6 +1039,7 @@ bool EDA_3D_CANVAS::SetView3D( int aKeycode )
         handled = true;
         break;
 
+    case 'v':
     case 'V':
         m_settings.SetFlag( FL_MODULE_ATTRIBUTES_VIRTUAL,
                             !m_settings.GetFlag( FL_MODULE_ATTRIBUTES_VIRTUAL ) );
@@ -1154,7 +1157,10 @@ bool EDA_3D_CANVAS::SetView3D( int aKeycode )
         m_settings.CameraGet().SetT0_and_T1_current_T();
         m_settings.CameraGet().Reset_T1();
         m_settings.CameraGet().RotateX_T1( glm::radians(  -90.0f ) );
-        m_settings.CameraGet().RotateZ_T1( glm::radians( -180.0f ) );
+        // The rotation angle should be 180.
+        // We use 179.999 (180 - epsilon) to avoid a full 360 deg rotation when
+        // using 180 deg if the previous rotated position was already 180 deg
+        m_settings.CameraGet().RotateZ_T1( glm::radians( -179.999f ) );
         request_start_moving_camera();
         return true;
 
@@ -1190,9 +1196,12 @@ bool EDA_3D_CANVAS::SetView3D( int aKeycode )
         m_settings.CameraGet().SetInterpolateMode( INTERPOLATION_BEZIER );
         m_settings.CameraGet().SetT0_and_T1_current_T();
         m_settings.CameraGet().Reset_T1();
-        m_settings.CameraGet().RotateY_T1( glm::radians( 180.0f ) ); //maui
+        m_settings.CameraGet().RotateY_T1( glm::radians( 179.999f ) ); // Rotation = 180-epsilon
         request_start_moving_camera(
                    glm::min( glm::max( m_settings.CameraGet().ZoomGet(), 0.5f ), 1.125f ) );
+        m_settings.CameraGet().RotateY_T1( glm::radians( 179.999f ) ); // Rotation = 180-epsilon
+        request_start_moving_camera(
+                    glm::min( glm::max( m_settings.CameraGet().ZoomGet(), 0.5f ), 1.125f ) );
         return true;
 
     default:
