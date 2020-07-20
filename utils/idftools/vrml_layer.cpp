@@ -655,7 +655,7 @@ bool VRML_LAYER::AddArc( double aCenterX, double aCenterY, double aStartX, doubl
     // we will not accept an arc with an inner radius close to zero so we
     // set a limit here. the end result will vary somewhat depending on
     // the output units
-    if( aArcWidth >= ( rad * 1.01 ) )
+    if( aArcWidth >= ( rad * 2.01 ) )  //maui adaptinging check on arc and width of it  * 1.01 ) )
     {
         error = "AddArc(): width/2 exceeds radius*1.01";
         return false;
