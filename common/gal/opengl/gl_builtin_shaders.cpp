@@ -282,7 +282,6 @@ const float SHADER_FILLED_CIRCLE        = 2.0;
 const float SHADER_STROKED_CIRCLE       = 3.0;
 const float SHADER_FONT                 = 4.0;
 const float SHADER_LINE_A               = 5.0;
-const float SHADER_LINE_B               = 6.0;
 
 varying vec4 shaderParams;
 varying vec2 circleCoords;
@@ -302,12 +301,6 @@ void filledCircle( vec2 aCoord )
 
 float pixelSegDistance( vec2 aCoord )
 {
-    if( shaderParams[0] == SHADER_LINE_B )
-    {
-        gl_FragColor = gl_Color;
-        return 0.0;
-    }
-
     float aspect = shaderParams[1];
     float dist;
     vec2 v = vec2( 1.0 - ( aspect - abs( aCoord.s ) ), aCoord.t );
@@ -361,19 +354,23 @@ float median( vec3 v )
 
 void main()
 {
-    if( shaderParams[0] == SHADER_LINE_A )
+    // VS to FS pipeline does math that means we can't rely on the mode
+    // parameter being bit-exact without rounding it first.
+    float mode = floor( shaderParams[0] + 0.5 );
+
+    if( mode == SHADER_LINE_A )
     {
         drawLine( gl_TexCoord[0].st );
     }
-    else if( shaderParams[0] == SHADER_FILLED_CIRCLE )
+    else if( mode == SHADER_FILLED_CIRCLE )
     {
         filledCircle( circleCoords );
     }
-    else if( shaderParams[0] == SHADER_STROKED_CIRCLE )
+    else if( mode == SHADER_STROKED_CIRCLE )
     {
         strokedCircle( circleCoords, shaderParams[2], shaderParams[3] );
     }
-    else if( shaderParams[0] == SHADER_FONT )
+    else if( mode == SHADER_FONT )
     {
         vec2 tex           = shaderParams.yz;
 

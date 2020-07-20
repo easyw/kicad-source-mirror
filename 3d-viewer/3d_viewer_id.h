@@ -103,6 +103,8 @@ enum id_3dview_frm
 
     ID_DISABLE_RAY_TRACING,
 
+    ID_CUSTOM_EVENT_1,      // A id for a custom event (canvas refresh request)
+
     ID_CLEAR_CACHE, //maui clearCache
 
     ID_POPUP_3D_VIEW_START,
