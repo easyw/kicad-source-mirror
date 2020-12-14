@@ -39,19 +39,13 @@ PCB_BASE_EDIT_FRAME::PCB_BASE_EDIT_FRAME( KIWAY* aKiway, wxWindow* aParent,
         PCB_BASE_FRAME( aKiway, aParent, aFrameType, aTitle, aPos, aSize, aStyle, aFrameName ),
                         m_rotationAngle( 900 ), m_undoRedoBlocked( false )
 {
-    if( !GFootprintList.GetCount() )
-    {
-        wxTextFile footprintInfoCache( Prj().GetProjectPath() + "fp-info-cache" );
-        GFootprintList.ReadCacheFromFile( &footprintInfoCache );
-    }
 }
 
 PCB_BASE_EDIT_FRAME::~PCB_BASE_EDIT_FRAME()
 {
     if( wxFileName::IsDirWritable( Prj().GetProjectPath() ) )
     {
-        wxTextFile footprintInfoCache( Prj().GetProjectPath() + "fp-info-cache" );
-        GFootprintList.WriteCacheToFile( &footprintInfoCache );
+        GFootprintList.WriteCacheToFile( Prj().GetProjectPath() + "fp-info-cache" );
     }
 }
 

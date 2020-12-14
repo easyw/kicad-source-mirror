@@ -210,8 +210,8 @@ public:
     {
     }
 
-    virtual void WriteCacheToFile( wxTextFile* aFile ) { };
-    virtual void ReadCacheFromFile( wxTextFile* aFile ) { };
+    virtual void WriteCacheToFile( const wxString& aFilePath ) {};
+    virtual void ReadCacheFromFile( const wxString& aFilePath ){};
 
     /**
      * @return the number of items stored in list
@@ -225,6 +225,14 @@ public:
     const FPILIST& GetList() const
     {
         return m_list;
+    }
+
+    /**
+	 * Clears the footprint info cache
+     */
+    void Clear()
+    {
+        m_list.clear();
     }
 
     /**
