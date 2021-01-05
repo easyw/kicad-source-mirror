@@ -1,5 +1,6 @@
-boost_root
 .downloads-by-cmake
+.gdb_history
+boost_root
 Build*
 build*
 !build_version.cpp
@@ -98,3 +99,20 @@ pcbnew/Info.plist
 .cproject
 .pydevproject
 __pycache__
+
+# Visual Studio
+.vs/
+.editorconfig
+CMakeSettings.json
+
+# Sublime Text
+*.sublime-*
+
+# KDevelop
+.kdev4/
+*.kdev4
+
+# Translations
+*.mo
+i18n_status.svg
+i18n_status.csv
