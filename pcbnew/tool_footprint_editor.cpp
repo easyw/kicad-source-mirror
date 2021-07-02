@@ -97,6 +97,13 @@ void FOOTPRINT_EDIT_FRAME::ReCreateHToolbar()
                             _( "Zoom to selection" ), wxITEM_CHECK );
 
     KiScaledSeparator( m_mainToolBar, this );
+	// maui // 3D view
+    m_mainToolBar->AddTool( ID_MENU_PCB_SHOW_3D_FRAME, wxEmptyString,
+                            KiScaledBitmap( three_d_xpm, this ),
+                            _( "Show in 3D viewer" ) );
+    KiScaledSeparator( m_mainToolBar, this );
+    // maui // 3D view
+
     m_mainToolBar->AddTool( ID_MODEDIT_EDIT_MODULE_PROPERTIES, wxEmptyString,
                             KiScaledBitmap( module_options_xpm, this ),
                             _( "Footprint properties" ) );
