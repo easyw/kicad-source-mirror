@@ -309,7 +309,7 @@ bool GERBVIEW_FRAME::OpenProjectFiles( const std::vector<wxString>& aFileSet, in
             wxString ext = fn.GetExt();
 
             if( ext == DrillFileExtension ||    // our Excellon format
-                ext == "nc" || ext == "xnc" )   // alternate ext for Excellon format
+                ext == "nc" || ext == "xnc" || ext == "ncd" )   // alternate ext for Excellon format  maui gerbv
                 LoadExcellonFiles( aFileSet[i] );
             else if( ext == GerberJobFileExtension )
                 LoadGerberJobFile( aFileSet[i] );
